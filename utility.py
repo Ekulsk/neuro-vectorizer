@@ -40,7 +40,7 @@ logger = logging.getLogger(__name__)
 #the maximum number of leafs in the LLVM abstract sytnax tree
 MAX_LEAF_NODES = 320
 # pragma line injected for each loop
-pragma_line = '#pragma clang loop vectorize_width({0}) interleave_count({1})\n'
+pragma_line = '#pragma clang loop unroll {0}\n'
 
 def init_runtimes_dict(files,num_loops,VF_len,IF_len):
     '''Used to initialize runtimes dict that stores 
@@ -226,7 +226,7 @@ def get_vectorized_code(code):
             orig_i=i
             while(i<ending+1):
                 if i==begining:
-                    new_code.append('//'+pragma_line.format(64,16))#start with -O3 vectorization
+                    new_code.append('//'+pragma_line.format(64))#start with -O3 vectorization
                     num_elems_in_new_code += 1
                     pragma_indices.append(num_elems_in_new_code-1)
                 new_code.append(code[i])
