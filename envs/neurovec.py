@@ -245,13 +245,15 @@ class NeuroVectorizerEnv(gym.Env):
         VF/IF pragma for the parsed loop.'''
         done = True # RL horizon = 1 
         action = list(np.reshape(np.array(action),(np.array(action).shape[0],)))
-        VF_idx = action[0]
-        IF_idx = action[1]
-        VF = self.vec_action_meaning[VF_idx]
-        IF = self.interleave_action_meaning[IF_idx]
+        unroll_idx = action[0]
+        #VF_idx = action[0]
+        #IF_idx = action[1]
+        unroll = self.unroll_action_meaning[unroll_idx]
+        #VF = self.vec_action_meaning[VF_idx]
+        #IF = self.interleave_action_meaning[IF_idx]
         current_filename = self.new_testfiles[self.current_file_idx]
-        self.new_code[self.pragmas_idxs[current_filename][self.current_pragma_idx]] = pragma_line.format(VF,IF)
-        reward = self.get_reward(self.new_code,current_filename,VF_idx,IF_idx)
+        self.new_code[self.pragmas_idxs[current_filename][self.current_pragma_idx]] = pragma_line.format(unroll)#pragma_line.format(VF,IF)
+        reward = self.get_reward(self.new_code,current_filename,unroll_idx) #VF_idx,IF_idx)
         #print("VF",VF,"IF",IF)
         #print('reward:', reward, 'O3',self.O3_runtimes[current_filename])
         self.current_pragma_idx += 1
