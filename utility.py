@@ -40,7 +40,7 @@ logger = logging.getLogger(__name__)
 #the maximum number of leafs in the LLVM abstract sytnax tree
 MAX_LEAF_NODES = 320
 # pragma line injected for each loop
-pragma_line = '#pragma clang loop unroll {0}\n'
+pragma_line = '#pragma clang loop unroll_count({0})\n'
 
 def init_runtimes_dict(files,num_loops,VF_len,IF_len):
     '''Used to initialize runtimes dict that stores 
